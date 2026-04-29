@@ -173,7 +173,6 @@
   .skill-bar-fill {
     height: 100%;
     border-radius: 4px;
-    background: var(--blue);
     animation: fillBar 1.2s ease both;
   }
   @keyframes fillBar { from { width: 0 !important; } }
@@ -270,6 +269,7 @@
     flex-direction: column;
     transition: border-color 0.2s, transform 0.2s;
     animation: fadeUp 0.5s ease both;
+    cursor: pointer;
   }
   .repo-card:hover { border-color: var(--blue); transform: translateY(-2px); }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } }
@@ -320,7 +320,6 @@
     color: var(--blue);
     text-decoration: none;
   }
-  .repo-name:hover { text-decoration: underline; }
   .repo-badge {
     font-size: 11px;
     padding: 2px 8px;
@@ -511,10 +510,116 @@
   .contrib-cell.l3 { background: #26a641; }
   .contrib-cell.l4 { background: var(--green); }
 
-  .divider {
-    height: 1px;
-    background: var(--border);
-    margin: 24px 0;
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+  .modal-overlay.active {
+    display: flex;
+  }
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes scaleUp {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal-header {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .modal-close {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+    border-radius: 4px;
+  }
+  .modal-close:hover {
+    background: var(--bg3);
+    color: var(--text);
+  }
+  .modal-body {
+    padding: 0;
+    flex: 1;
+    overflow-y: auto;
+  }
+  .modal-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid var(--border);
+  }
+  .modal-desc {
+    padding: 16px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .modal-footer {
+    padding: 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    background: var(--bg);
+  }
+  .btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+  }
+  .btn-secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .btn-secondary:hover {
+    background: var(--bg3);
+    border-color: var(--text-muted);
+  }
+  .btn-primary {
+    background: var(--green);
+    border: 1px solid transparent;
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: #2ea043;
   }
 
   /* RESPONSIVE */
@@ -557,7 +662,7 @@
     <div class="handle">shivansh0536</div>
 
     <p class="bio">
-      MERN Stack Developer shipping production-grade full-stack apps. Building scalable, user-facing products with React.js, Node.js &amp; MongoDB. Also doing satellite imagery &amp; ML.
+      Data Analyst and Visualization Specialist with a strong foundation in transforming complex datasets into actionable business insights. Skilled in Python, SQL, and Tableau.
     </p>
 
     <a href="mailto:shivansh.upadhayay2024@nst.rishihood.edu.in" class="follow-btn">✉ Follow / Contact</a>
@@ -587,11 +692,12 @@
 
     <div class="section-title">Organizations</div>
     <div class="tag-cloud">
-      <span class="tag">React.js</span>
-      <span class="tag">Node.js</span>
-      <span class="tag">MongoDB</span>
+      <span class="tag">Tableau</span>
+      <span class="tag">Power BI</span>
       <span class="tag">Python</span>
       <span class="tag">SQL</span>
+      <span class="tag">Pandas</span>
+      <span class="tag">MongoDB</span>
       <span class="tag">AWS</span>
       <span class="tag">GIS</span>
     </div>
@@ -599,24 +705,24 @@
     <div class="section-title">Skills</div>
     <div class="skill-bar-group">
       <div class="skill-bar-item">
-        <div class="skill-bar-label"><span>JavaScript / TypeScript</span><span>95%</span></div>
-        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%;background:var(--yellow);"></div></div>
+        <div class="skill-bar-label"><span>Python / Pandas / NumPy</span><span>90%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%;background:var(--purple);"></div></div>
       </div>
       <div class="skill-bar-item">
-        <div class="skill-bar-label"><span>React.js / Node.js</span><span>90%</span></div>
-        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%;background:var(--blue);"></div></div>
+        <div class="skill-bar-label"><span>SQL / PostgreSQL / MySQL</span><span>85%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%;background:var(--blue);"></div></div>
       </div>
       <div class="skill-bar-item">
-        <div class="skill-bar-label"><span>MongoDB / PostgreSQL</span><span>85%</span></div>
-        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%;background:var(--green);"></div></div>
+        <div class="skill-bar-label"><span>Tableau / Power BI</span><span>85%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%;background:var(--orange);"></div></div>
       </div>
       <div class="skill-bar-item">
-        <div class="skill-bar-label"><span>Python / ML / GIS</span><span>75%</span></div>
-        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%;background:var(--purple);"></div></div>
+        <div class="skill-bar-label"><span>JavaScript / TypeScript</span><span>70%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%;background:var(--yellow);"></div></div>
       </div>
       <div class="skill-bar-item">
-        <div class="skill-bar-label"><span>Cloud / DevOps</span><span>70%</span></div>
-        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%;background:var(--orange);"></div></div>
+        <div class="skill-bar-label"><span>Cloud / DevOps / AWS</span><span>60%</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:60%;background:var(--green);"></div></div>
       </div>
     </div>
   </aside>
@@ -626,7 +732,7 @@
 
     <!-- Contribution Graph -->
     <div class="contrib-section">
-      <div class="contrib-title">Activity overview — contributions in the last year</div>
+      <div class="contrib-title">Activity overview — 1,402 contributions in the last year</div>
       <div class="contrib-grid" id="contribGrid"></div>
     </div>
 
@@ -645,7 +751,7 @@
         Education
       </div>
       <div class="tab" onclick="switchTab('certs')">
-        ⭐ Certifications <span class="badge">2</span>
+        ⭐ Certifications <span class="badge">1</span>
       </div>
     </div>
 
@@ -654,91 +760,66 @@
       <div class="filter-bar">
         <input class="search-input" type="text" placeholder="Find a repository..." oninput="filterRepos(this.value)">
         <button class="filter-btn active" onclick="filterTag('All', this)">All</button>
-        <button class="filter-btn" onclick="filterTag('React', this)">React</button>
-        <button class="filter-btn" onclick="filterTag('Node.js', this)">Node.js</button>
         <button class="filter-btn" onclick="filterTag('Python', this)">Python</button>
+        <button class="filter-btn" onclick="filterTag('Tableau', this)">Tableau</button>
+        <button class="filter-btn" onclick="filterTag('SQL', this)">SQL</button>
         <button class="filter-btn" onclick="filterTag('ML', this)">ML / GIS</button>
       </div>
 
       <div class="repo-grid" id="repoGrid">
 
-        <!-- BookMyStay -->
-        <div class="repo-card" data-tags="React Node.js All" data-name="BookMyStay">
+        <!-- Chocolate Sales Analytics -->
+        <div class="repo-card" data-tags="Python Tableau All" data-name="Chocolate-Sales-Analytics" onclick="openModal('Chocolate-Sales-Analytics', 'assets/chocolate_sales_dashboard_1777485520064.png', 'Engineered an ETL pipeline to extract, clean, and merge 1M+ rows of sales data. Built 3 interactive Tableau dashboards for business insights.')">
           <div class="repo-thumb">
-            <div class="repo-thumb-inner">🏨</div>
-            <div class="repo-thumb-gradient" style="background:linear-gradient(135deg,rgba(88,166,255,0.3),rgba(188,140,255,0.2));"></div>
-            <div class="repo-thumb-label">Full-Stack</div>
+            <div class="repo-thumb-inner">🍫</div>
+            <div class="repo-thumb-gradient" style="background:linear-gradient(135deg,rgba(231,179,65,0.3),rgba(247,129,102,0.2));"></div>
+            <div class="repo-thumb-label">Analytics Dashboard</div>
           </div>
           <div class="repo-body">
             <div class="repo-header">
-              <span class="repo-name">BookMyStay</span>
+              <span class="repo-name">Chocolate-Sales-Analytics</span>
               <span class="repo-badge">Public</span>
             </div>
-            <p class="repo-desc">Full-stack hotel booking platform with role-based access (Admin/Owner/Customer), Razorpay payment gateway, real-time availability search &amp; audit logging.</p>
+            <p class="repo-desc">Engineered an ETL pipeline to extract, clean, and merge 1M+ rows of sales data. Built 3 interactive Tableau dashboards for business insights.</p>
             <div class="repo-tags">
-              <span class="repo-tag">hotel-booking</span>
-              <span class="repo-tag">razorpay</span>
-              <span class="repo-tag">role-based-auth</span>
+              <span class="repo-tag">python</span>
+              <span class="repo-tag">tableau</span>
+              <span class="repo-tag">pandas</span>
             </div>
             <div class="repo-lang">
-              <span class="lang-dot" style="background:var(--yellow);"></span>
-              JavaScript
+              <span class="lang-dot" style="background:var(--blue);"></span>
+              Python
             </div>
           </div>
         </div>
 
-        <!-- QuickBite -->
-        <div class="repo-card" data-tags="React Node.js All" data-name="QuickBite">
+        <!-- Global Supply Chain Optimization -->
+        <div class="repo-card" data-tags="Python SQL All" data-name="Global-Supply-Chain-Optimization" onclick="openModal('Global-Supply-Chain-Optimization', 'assets/supply_chain_dashboard_1777485543889.png', 'Analyzed 500K+ global logistics records. Developed predictive clustering models to segment suppliers and forecast inventory shortages with 85% accuracy.')">
           <div class="repo-thumb">
-            <div class="repo-thumb-inner">🍔</div>
-            <div class="repo-thumb-gradient" style="background:linear-gradient(135deg,rgba(63,185,80,0.3),rgba(231,179,65,0.2));"></div>
-            <div class="repo-thumb-label">Full-Stack</div>
+            <div class="repo-thumb-inner">📦</div>
+            <div class="repo-thumb-gradient" style="background:linear-gradient(135deg,rgba(88,166,255,0.3),rgba(63,185,80,0.2));"></div>
+            <div class="repo-thumb-label">Predictive Modeling</div>
           </div>
           <div class="repo-body">
             <div class="repo-header">
-              <span class="repo-name">QuickBite</span>
+              <span class="repo-name">Global-Supply-Chain-Optimization</span>
               <span class="repo-badge">Public</span>
             </div>
-            <p class="repo-desc">Scalable food delivery platform with real-time restaurant search, dynamic menus, live order tracking &amp; secure JWT auth. Deployed on Vercel + Render.</p>
+            <p class="repo-desc">Analyzed 500K+ global logistics records. Developed predictive clustering models to segment suppliers and forecast inventory with 85% accuracy.</p>
             <div class="repo-tags">
-              <span class="repo-tag">food-delivery</span>
-              <span class="repo-tag">live-tracking</span>
-              <span class="repo-tag">jwt-auth</span>
+              <span class="repo-tag">python</span>
+              <span class="repo-tag">sql</span>
+              <span class="repo-tag">power-bi</span>
             </div>
             <div class="repo-lang">
-              <span class="lang-dot" style="background:var(--yellow);"></span>
-              JavaScript
-            </div>
-          </div>
-        </div>
-
-        <!-- WishKart -->
-        <div class="repo-card" data-tags="React All" data-name="WishKart">
-          <div class="repo-thumb">
-            <div class="repo-thumb-inner">🛒</div>
-            <div class="repo-thumb-gradient" style="background:linear-gradient(135deg,rgba(247,129,102,0.3),rgba(88,166,255,0.2));"></div>
-            <div class="repo-thumb-label">Frontend</div>
-          </div>
-          <div class="repo-body">
-            <div class="repo-header">
-              <span class="repo-name">WishKart</span>
-              <span class="repo-badge">Public</span>
-            </div>
-            <p class="repo-desc">Responsive e-commerce app with product discovery, wishlist management, personalized recommendations, dark/light theme toggle &amp; role-based access.</p>
-            <div class="repo-tags">
-              <span class="repo-tag">e-commerce</span>
-              <span class="repo-tag">wishlist</span>
-              <span class="repo-tag">dark-mode</span>
-            </div>
-            <div class="repo-lang">
-              <span class="lang-dot" style="background:var(--yellow);"></span>
-              JavaScript
+              <span class="lang-dot" style="background:var(--blue);"></span>
+              Python
             </div>
           </div>
         </div>
 
         <!-- Forest Cover Detection -->
-        <div class="repo-card" data-tags="Python ML All" data-name="ForestCoverDetector">
+        <div class="repo-card" data-tags="Python ML All" data-name="Forest-Cover-Detection" onclick="openModal('Forest-Cover-Detection', 'assets/forest_cover_dashboard_1777485567012.png', 'AI-enabled forest change detection over 7,995 sq km using Google Earth Engine, NDVI differencing & adaptive threshold classification. Identified 309 sq km loss.')">
           <div class="repo-thumb">
             <div class="repo-thumb-inner">🛰️</div>
             <div class="repo-thumb-gradient" style="background:linear-gradient(135deg,rgba(63,185,80,0.3),rgba(35,134,54,0.2));"></div>
@@ -746,10 +827,10 @@
           </div>
           <div class="repo-body">
             <div class="repo-header">
-              <span class="repo-name">ForestCoverDetector</span>
+              <span class="repo-name">Forest-Cover-Detection</span>
               <span class="repo-badge">Public</span>
             </div>
-            <p class="repo-desc">AI-enabled forest change detection over 7,995 sq km using Google Earth Engine, NDVI differencing &amp; adaptive threshold classification. Identified 309 sq km loss.</p>
+            <p class="repo-desc">AI-enabled forest change detection over 7,995 sq km using Google Earth Engine, NDVI differencing & adaptive threshold classification.</p>
             <div class="repo-tags">
               <span class="repo-tag">ndvi</span>
               <span class="repo-tag">google-earth-engine</span>
@@ -772,33 +853,18 @@
           <div class="tl-dot" style="background:var(--green);"></div>
           <div class="tl-card">
             <div class="tl-header">
-              <div class="tl-title">Remote Sensing &amp; GIS Intern</div>
+              <div class="tl-title">Data Analytics & Remote Sensing Intern</div>
               <div class="tl-date">Jan 2026</div>
             </div>
             <div class="tl-org">🛰️ Indian Space Academy · Remote</div>
             <ul class="tl-bullets">
-              <li>Completed a four-week Winter Training Programme on Remote Sensing, GIS &amp; Space Science Technology.</li>
-              <li>Developed AI-enabled forest cover change detection using Google Earth Engine, NDVI differencing &amp; adaptive threshold classification.</li>
-              <li>Processed 7,995 sq km area — identified 309.73 sq km forest loss, 1,768.63 sq km stable forest, and 343.73 sq km forest gain.</li>
+              <li>Developed an AI-enabled geospatial analysis system using Google Earth Engine and NDVI differencing algorithms to detect forest cover changes.</li>
+              <li>Processed, cleaned, and analyzed massive spatial datasets covering a 7,995 sq km area, successfully quantifying 309.73 sq km of forest loss and 343.73 sq km of forest gain.</li>
+              <li>Automated data extraction pipelines to streamline the classification and visual reporting of complex ecological metrics.</li>
             </ul>
           </div>
         </div>
 
-        <div class="tl-item">
-          <div class="tl-dot" style="background:var(--blue);"></div>
-          <div class="tl-card">
-            <div class="tl-header">
-              <div class="tl-title">MERN Stack Developer</div>
-              <div class="tl-date">2024 – Present</div>
-            </div>
-            <div class="tl-org">💻 Independent / Freelance · New Delhi</div>
-            <ul class="tl-bullets">
-              <li>Independently shipped 3 production-grade full-stack applications — BookMyStay, QuickBite, and WishKart.</li>
-              <li>Architected REST APIs with JWT authentication and integrated payment gateways (Razorpay).</li>
-              <li>Deployed apps on Vercel &amp; Render with CI/CD pipelines and cloud databases via MongoDB Atlas.</li>
-            </ul>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -807,25 +873,25 @@
       <div class="edu-card">
         <div class="edu-icon">🎓</div>
         <div>
-          <div class="edu-degree">B.Tech in Computer Science</div>
-          <div class="edu-school">Rishihood University (Newton School of Technology), New Delhi</div>
-          <div class="edu-year">Expected January 2028</div>
+          <div class="edu-degree">Bachelor of Technology (Computer Science)</div>
+          <div class="edu-school">Newton School of Technology, Rishihood University</div>
+          <div class="edu-year">2024 - 2028 · CGPA: 6.5 / 10</div>
         </div>
       </div>
       <div class="edu-card">
         <div class="edu-icon">📚</div>
         <div>
-          <div class="edu-degree">Class XII – Science (Intermediate)</div>
+          <div class="edu-degree">Intermediate (Class XII)</div>
           <div class="edu-school">Sardar Doon Public School, Dehradun</div>
-          <div class="edu-year">2022–2023 · Grade: 78.4%</div>
+          <div class="edu-year">2022 - 2023 · Grade: 78.4%</div>
         </div>
       </div>
       <div class="edu-card">
         <div class="edu-icon">🏫</div>
         <div>
-          <div class="edu-degree">Class X – Matriculation</div>
+          <div class="edu-degree">Matriculation (Class X)</div>
           <div class="edu-school">Sardar Doon Public School, Dehradun</div>
-          <div class="edu-year">2020–2021 · Grade: 82.0%</div>
+          <div class="edu-year">2020 - 2021 · Grade: 82.0%</div>
         </div>
       </div>
     </div>
@@ -836,19 +902,32 @@
         <div class="cert-icon">🛰️</div>
         <div>
           <div class="cert-name">Winter Training Programme – Remote Sensing &amp; GIS</div>
-          <div class="cert-org">Indian Space Academy · January 2026 · Satellite image processing, spatial data analysis &amp; GIS tools.</div>
-        </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon">🏆</div>
-        <div>
-          <div class="cert-name">Merit Certificate – Naukri Campus Young Turks</div>
-          <div class="cert-org">Naukri.com · October 2025 · 95.67 percentile — Logical Reasoning, Quant, Verbal &amp; Problem Solving.</div>
+          <div class="cert-org">Indian Space Academy · January 2026</div>
         </div>
       </div>
     </div>
 
   </main>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="repoModal" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <span id="modalTitle">Project Name</span>
+      <button class="modal-close" onclick="closeModal(event)">&times;</button>
+    </div>
+    <div class="modal-body">
+      <img id="modalImage" class="modal-image" src="" alt="Project Image">
+      <div id="modalDesc" class="modal-desc">
+        Project description goes here.
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal(event)">Cancel</button>
+      <button class="btn btn-primary" onclick="alert('Navigating to Live Repository...')">View Live Repository</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -877,6 +956,19 @@
     document.querySelectorAll('.repo-card').forEach(card => {
       card.style.display = card.dataset.name.toLowerCase().includes(q) ? '' : 'none';
     });
+  }
+
+  // Modal logic
+  function openModal(title, imageSrc, desc) {
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalImage').src = imageSrc;
+    document.getElementById('modalDesc').innerText = desc;
+    document.getElementById('repoModal').classList.add('active');
+  }
+  
+  function closeModal(e) {
+    if (e) e.preventDefault();
+    document.getElementById('repoModal').classList.remove('active');
   }
 
   // Contribution graph generator
